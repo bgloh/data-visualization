@@ -1,18 +1,7 @@
 
 <!DOCTYPE html>
 
-<style>
 
-h1 {
-  font: 400 120px/500px "Helvetica Neue";
-  text-align: center;
-  width: 960px;
-  height: 500px;
-  margin: 0;
-  position: absolute;
-}
-
-</style>
 
 <head>
 <!-- <link rel="stylesheet" type="text/css" href="theme.css"> -->
@@ -38,15 +27,21 @@ h1 {
   <p>This is another text.</p>      
 </div>
 
+<div id = "text">
 <h1> TEXT TRANSITION </h1>
+</div>
 
-
+<div>
+	<svg width = "100" height ="100">
+		<circle cx="50" cy="50" r="10"   />
+	</svg>
+</div>
 
 <script>
 
 var format = d3.format(",d");
 
-d3.select("h1")
+d3.select("#text")
   .transition()
     .duration(2500)
     .on("start", function repeat() {
