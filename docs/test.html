@@ -3,7 +3,7 @@
   <head> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r83/three.min.js"> </script>
   </head>
-<p> HELLO PAGE2 </p>
+<p> Three.js test page </p>
 
 <script>
 var scene, camera, renderer;
@@ -25,7 +25,7 @@ function init() {
 	mesh = new THREE.Mesh( geometry, material );
 	scene.add( mesh );
 
-	renderer = new THREE.WebGLRenderer();
+	renderer = new THREE.CanvasRenderer; //renderer = new THREE.WebGLRenderer();
 	renderer.setSize( window.innerWidth, window.innerHeight );
 
 	document.body.appendChild( renderer.domElement );
