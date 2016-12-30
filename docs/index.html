@@ -5,7 +5,7 @@
 
 <head>
 <!-- <link rel="stylesheet" type="text/css" href="theme.css"> -->
-<title>Bootstrap Example</title>
+<title>Data Visualization</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -17,35 +17,34 @@
  <script src="https://d3js.org/d3.v4.0.0-alpha.23.min.js"></script>
 </head>
 
-
+<body>
 <div class="container">
   <div class="jumbotron">
-    <h2>Bootstrap Tutorial</h2>      
-    <p>Bootstrap is the most popular HTML, CSS, and JS framework for developing responsive, mobile-first projects on the web.</p>
+    <h2>Data-driven document Project</h2>      
+    <p>Sankey Diagram</p>
   </div>
-  <p>This is some text.</p>      
-  <p>This is another text.</p>   
- <button onclick="location.href= 'test.html' " type="button">
-     www.example.com</button>
-
+  <p>Started on 12.30.2016</p>      
+     
+ <button onclick="location.href= 'sankey.html' " type="button">
+          sankey</button>
+ <div id = "text1">
+ <h1> TEXT TRANSITION </h1>
+ </div>
 </div>
 
-<div id = "text">
-<h1> TEXT TRANSITION </h1>
-</div>
+
 
 <div>
 	<svg width = "100" height ="100">
 		<circle cx="50" cy="50" r="10"   />
-
-	</svg>
+  </svg>
 </div>
-
+</body>
 <script>
 
 var format = d3.format(",d");
 
-d3.select("#text")
+d3.select("#text1")
   .transition()
     .duration(2500)
     .on("start", function repeat() {
@@ -53,7 +52,7 @@ d3.select("#text")
           .style("opacity", 0)
           .remove();
 
-      d3.select("body").append("h1")
+      d3.select("body").select("#text1")
           .style("opacity", 0)
           .text(format(Math.random() * 1e6))
         .transition(t)
