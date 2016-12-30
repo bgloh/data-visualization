@@ -1,39 +1,121 @@
-<!DOCTYPE html>
 <html>
-	<head>
-		<title>My first Three.js app</title>
-		<style>
-			body { margin: 0; }
-			canvas { width: 100%; height: 100% }
-		</style>
-	</head>
-	<body>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r83/three.min.js"></script>
-		<script>
-			var scene = new THREE.Scene();
-			var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
 
-			var renderer = new THREE.WebGLRenderer();
-			renderer.setSize( window.innerWidth, window.innerHeight );
-			document.body.appendChild( renderer.domElement );
+<head>
+    <title>Example 08.08 - Load collada model </title>
+ <script type="text/javascript" src="https://dl.dropboxusercontent.com/u/6290666/CanvasRenderer.js"></script>
+ <script type="text/javascript" src="https://dl.dropboxusercontent.com/u/6290666/three.js"></script>
+ <script type="text/javascript" src="https://dl.dropboxusercontent.com/u/6290666/dat.gui.js"></script>
+ <script type="text/javascript" src="https://dl.dropboxusercontent.com/u/6290666/OrbitControls.js"></script>
+ <script type="text/javascript" src="https://dl.dropboxusercontent.com/u/6290666/Detector.js"></script>
+ <script type="text/javascript" src="https://dl.dropboxusercontent.com/u/6290666/stats.min.js"></script>
+ <script type="text/javascript" src="https://dl.dropboxusercontent.com/u/6290666/ColladaLoader.js"></script>
+        
+    <style>
+        body {
+            /* set margin to 0 and overflow to hidden, to go fullscreen */
+            margin: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
 
-			var geometry = new THREE.BoxGeometry( 1, 1, 1 );
-			var material = new THREE.MeshLambertMaterial( { color: 0x00ff00 } );
-			var cube = new THREE.Mesh( geometry, material );
-			scene.add( cube );
+<div id="Stats-output">
+</div>
+<!-- Div which will hold the Output -->
+<div id="WebGL-output">
+</div>
 
-			camera.position.z = 5;
+<!-- Javascript code that runs our Three.js examples -->
+<script type="text/javascript">
 
-			var render = function () {
-				requestAnimationFrame( render );
+    // once everything is loaded, we run our Three.js stuff.
+    function init() {
 
-				cube.rotation.x += 0.01;
-				cube.rotation.y += 0.01;
+        var stats = initStats();
 
-				renderer.render(scene, camera);
-			};
+        // create a scene, that will hold all our elements such as objects, cameras and lights.
+        var scene = new THREE.Scene();
 
-			render();
-		</script>
-	</body>
+        // create a camera, which defines where we're looking at.
+        var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+        // create a render and set the size
+        //var webGLRenderer = new THREE.WebGLRenderer();
+        var webGLRenderer = new THREE.CanvasRenderer();
+        webGLRenderer.setClearColor(new THREE.Color(0xcccccc, 1.0));
+        webGLRenderer.setSize(window.innerWidth, window.innerHeight);
+        webGLRenderer.shadowMapEnabled = true;
+
+        // position and point the camera to the center of the scene
+        camera.position.x = 150;
+        camera.position.y = 150;
+        camera.position.z = 150;
+        camera.lookAt(new THREE.Vector3(0, 20, 0));
+
+        // add spotlight for the shadows
+        var spotLight = new THREE.SpotLight(0xffffff);
+        spotLight.position.set(150, 150, 150);
+        spotLight.intensity = 2;
+        scene.add(spotLight);
+
+        
+
+        // add the output of the renderer to the html element
+        document.getElementById("WebGL-output").appendChild(webGLRenderer.domElement);
+
+        // model from http://www.thingiverse.com/thing:69709
+        var loader = new THREE.ColladaLoader();
+
+        var model2;
+        var model3;
+        loader.load("https://dl.dropboxusercontent.com/u/6290666/bar1.dae", function (result) {
+           /* mesh = result.scene.children[0].children[0].clone();
+            mesh.scale.set(4, 4, 4);*/
+
+            model2 = result.scene.children[0];
+            model3 = result.dae.geometries.ID4;
+            
+            var modelMaterial = new THREE.MeshLambertMaterial({color: 0xFFccFF});
+            var cube2 = new THREE.Mesh(model3, modelMaterial);
+            model2.scale.set(10, 10, 10);
+            cube2.scale.set(10, 10, 10);
+            model2.position.x = -100;
+            model2.rotation.x = -90;
+            model2.shadows = true;
+            console.log(cube2);
+            console.log(model2);
+
+            scene.add(model2);
+        });
+
+
+        render();
+
+
+        function render() {
+            stats.update();
+            // render using requestAnimationFrame
+            requestAnimationFrame(render);
+            webGLRenderer.render(scene, camera);
+        }
+
+        function initStats() {
+
+            var stats = new Stats();
+            stats.setMode(0); // 0: fps, 1: ms
+
+            // Align top-left
+            stats.domElement.style.position = 'absolute';
+            stats.domElement.style.left = '0px';
+            stats.domElement.style.top = '0px';
+
+            document.getElementById("Stats-output").appendChild(stats.domElement);
+
+            return stats;
+        }
+    }
+    window.onload = init;
+</script>
+</body>
 </html>
