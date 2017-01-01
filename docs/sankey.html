@@ -2,35 +2,13 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <title>SANKEY diagram using d3.js</title>
-<style>
 
-.node rect {
-  cursor: move;
-  fill-opacity: 1.0;
-
-}
-
-.node text {
-  pointer-events: none;
-  text-shadow: 0 1px 0 #fff;
-  font-family: courier
-}
-
-.link {
-  fill: none;
-  stroke: #000;
-  stroke-opacity: .2;
-}
-
-.link:hover {
-  stroke-opacity: .5;
-}
-
-</style>
 <head>
 	<meta charset="utf-8">
   	<meta name="viewport" content="width=device-width, initial-scale=1">
   	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Inconsolata" />
+    <link rel="stylesheet" type="text/css" href="../stylesheet.css" />
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="http://d3js.org/d3.v3.min.js"></script>
@@ -89,7 +67,7 @@ d3.csv("../data.csv", function(error, data) {
                          "target": d.target,
                          "value": +d.value });
      });
-
+    
      // return only the distinct / unique nodes
      graph.nodes = d3.keys(d3.nest()
        .key(function (d) { return d.name; })
@@ -106,6 +84,7 @@ d3.csv("../data.csv", function(error, data) {
      graph.nodes.forEach(function (d, i) {
        graph.nodes[i] = { "name": d };
      });
+      console.log(graph.links);
 
   sankey
     .nodes(graph.nodes)
@@ -125,7 +104,8 @@ d3.csv("../data.csv", function(error, data) {
   link.append("title")
         .text(function(d) {
     		return d.source.name + " → " + 
-                d.target.name + "\n" + format(d.value); });
+                d.target.name + "\n" + format(d.value)
+                + "\n" + "...??"; });
 
 // add in the nodes
   var node = svg.append("g").selectAll(".node")
@@ -174,5 +154,9 @@ d3.csv("../data.csv", function(error, data) {
     link.attr("d", path);
   }
 });
+
+
 </script>
 </html>
+
+

@@ -1,0 +1,30 @@
+
+
+.node rect {
+  cursor: move;
+  fill-opacity: 1.0;
+
+}
+
+.node text {
+  pointer-events: none;
+  text-shadow: 0 1px 0 #fff;
+  font-family: Inconsolata;
+  format('woff');
+  font-weight: normal;
+  font-style:  normal;
+  font-size: 16px;
+  fill : #5882bb;
+}
+
+.link {
+  fill: none;
+  stroke: #000;
+  stroke-opacity: .2;
+}
+
+.link:hover {
+  stroke-opacity: .5;
+}
+
+
