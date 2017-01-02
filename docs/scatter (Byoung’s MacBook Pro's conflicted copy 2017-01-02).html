@@ -1,0 +1,46 @@
+
+<html>
+ <head>
+<!-- <link rel="stylesheet" type="text/css" href="theme.css"> -->
+<title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+ 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+ <!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+ <script src="https://d3js.org/d3.v4.0.0-alpha.23.min.js"></script>
+</head>
+
+
+<div class="container">
+  <div class="jumbotron">
+    <h2>Scatter Plot</h2>      
+    <p>Bootstrap is the most popular HTML, CSS, and JS framework for developing responsive, mobile-first projects on the web.</p>
+  </div>
+ <button onclick="location.href= 'test.html' " type="button">
+     click me</button>
+
+</div>
+ 
+<div id="punchcard"></div>
+
+<script>
+var nested_data;
+var foo;
+d3.csv("../docs/csv/workplaceAccident1.csv", function(data) {
+	//console.log(data);
+  nested_data = d3.nest()
+                     .key(function(d){return d.A;})
+                     .entries(data);
+                     foo = nested_data[0].values[0];
+                     console.log(foo);
+                 }
+
+);
+
+</script>
+</html>
+ 
